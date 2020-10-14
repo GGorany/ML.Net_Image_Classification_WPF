@@ -1,0 +1,46 @@
+﻿<Window 
+    x:Class="AITrainer.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:paz="clr-namespace:Wpf.Controls.PanAndZoom;assembly=Wpf.Controls.PanAndZoom"
+    MinHeight="500" MinWidth="800" ResizeMode="CanResizeWithGrip"
+    Title="{Binding Title}" Height="500" Width="800" >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="CadetBlue">
+            <TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Heavy"
+                       Foreground="AliceBlue">
+                <Run Text="Deep Learning" Foreground="Gold"/>
+                <Run Text="-"/>
+                <Run Text="Image Classification for AI Vision" Foreground="PaleGoldenrod"/>
+            </TextBlock>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Width="100" Background="CadetBlue">
+                <Button Margin="2" Content="Train" FontSize="20" FontWeight="Heavy"
+                        Command="{Binding NavigateCommand}" CommandParameter="TrainPage"/>
+
+                <Button Margin="2" Content="Predict" FontSize="20" FontWeight="Heavy"
+                        Command="{Binding NavigateCommand}" CommandParameter="PredictPage"/>
+            </StackPanel>
+
+            <ContentControl Grid.Column="1" prism:RegionManager.RegionName="MainPageRegion"/>
+
+        </Grid>
+    </Grid>
+    
+</Window>

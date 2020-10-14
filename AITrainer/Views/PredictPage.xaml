@@ -1,0 +1,82 @@
+﻿<UserControl 
+    x:Class="AITrainer.Views.PredictPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:AITrainer.Views"
+    xmlns:prism="http://prismlibrary.com/" 
+    xmlns:paz="clr-namespace:Wpf.Controls.PanAndZoom;assembly=Wpf.Controls.PanAndZoom"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="AliceBlue" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Column="0" Header="Image" >
+            <Grid>
+                <paz:ZoomBorder ZoomSpeed="1.2" ClipToBounds="True" Focusable="False" 
+                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                    <Image Source="{Binding BeforeImage}"/>
+                </paz:ZoomBorder>
+
+                <StackPanel>
+                    <TextBlock FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Right" FontWeight="Heavy"
+                           Foreground="GreenYellow" Background="DimGray" Opacity="0.5"
+                           Text="{Binding ResultText}"/>
+
+                    <TextBlock FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Right" FontWeight="Heavy"
+                           Foreground="GreenYellow" Background="DimGray" Opacity="0.5"
+                           Text="{Binding PridictTime, StringFormat={}{0} ms}"/>
+                </StackPanel>
+                
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="1" Header="Predict" >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" Text="{Binding ModelFileName}" IsReadOnly="True" Margin="0,0,2,0"/>
+                    <Button Grid.Column="1" Command="{Binding ModelFileSelect}" Content="Select Model"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" Text="{Binding FolderName}" IsReadOnly="True" Margin="0,0,2,0"/>
+                    <Button Grid.Column="1" Command="{Binding FolderSelect}" Content="Folder"/>
+                </Grid>
+
+                <ListBox Grid.Row="2" ItemsSource="{Binding TargetImages}" DisplayMemberPath="FileName" Margin="2"
+                         SelectedItem="{Binding SelectedTargetImage, Mode=TwoWay}" SelectionMode="Single"/>
+
+                <Grid Grid.Row="3" Margin="2">
+                    <StackPanel prism:RegionManager.RegionName="ResultRegion" />
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+    
+    
+</UserControl>
